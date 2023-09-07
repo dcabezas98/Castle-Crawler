@@ -2,23 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package castlecrawler;
+package GUI;
+
+import castlecrawler.Room;
 
 /**
  *
  * @author David Cabezas
  */
-public class EmptyRoom implements Room {
+public abstract class RoomView extends javax.swing.JPanel {
+
+    public boolean selected = false;
     
-    @Override
-    public RoomType getType() {
-        return RoomType.EMPTYROOM;
-    }
-    
-    
-    
-    @Override
-    public String toString(){
-        return "0";
+    public boolean isSelected () {
+        return selected;
     }
 }

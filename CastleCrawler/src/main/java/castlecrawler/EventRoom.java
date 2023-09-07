@@ -10,6 +10,16 @@ package castlecrawler;
  */
 public class EventRoom implements Room {
     
+    private String description;
+    
+    EventRoom(String d){
+        description=d;
+    }
+    
+    public String getDescription(){
+        return description;
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.EVENTROOM;
@@ -19,4 +29,6 @@ public class EventRoom implements Room {
     public String toString(){
         return "V";
     }
+    
+    
 }

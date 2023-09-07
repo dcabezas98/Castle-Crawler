@@ -5,6 +5,8 @@
 package main;
 
 import castlecrawler.GameUniverse;
+import controller.Controller;
+import GUI.MainView;
 
 /**
  *
@@ -18,7 +20,13 @@ public class Play {
         
         GameUniverse game = new GameUniverse(diff);
         
-        System.out.println(game.getStage());
+        MainView view = new MainView();
+        
+        Controller controller = new Controller(game, view);
+        
+        controller.start();
+        
+        //System.out.println(game.getStage());
     }
     
 }

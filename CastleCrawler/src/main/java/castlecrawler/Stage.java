@@ -42,18 +42,40 @@ public class Stage {
         map[seq.get(r)/nRows][seq.get(r)%nRows] = new StartRoom();
         r++;
         for (; r < nLootRoom+1; r++){
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new LootRoom();
+            
+            // int[] ep = dice.getLootStats()
+            int e = 1;
+            int p = 2;
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = new LootRoom(e, p);
         }
         for (; r < nEnemyRoom+nLootRoom+1; r++){
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EnemyRoom();
+            
+            // int[] ahep = dice.getEnemyStats()
+            int a = 10;
+            int h = 50;
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EnemyRoom(a,h);
         }
         for (; r < nEventRoom+nEnemyRoom+nLootRoom+1; r++){
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EventRoom();
+            // String des = dealer.getEvent() 
+            String des = "TODO: descripción";
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EventRoom(des);
         }
         for (; r < nRows*nCols-1; r++){
             map[seq.get(r)/nRows][seq.get(r)%nRows] = new EmptyRoom();
         }
         map[seq.get(r)/nRows][seq.get(r)%nRows] = new FinalRoom();
+    }
+    
+    public Room[][] getMap(){
+        return map;
+    }
+    
+    public int getNRows(){
+        return nRows;
+    }
+    
+    public int getNCols(){
+        return nCols;
     }
     
     @Override

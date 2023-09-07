@@ -10,6 +10,22 @@ package castlecrawler;
  */
 public class EnemyRoom implements Room {
     
+    private int atk;
+    private int hp;
+    
+    EnemyRoom(int a, int h){
+        atk=a;
+        hp=h;
+    }
+    
+    public int getAttack(){
+        return atk;
+    }
+    
+    public int getHP(){
+        return hp;
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.ENEMYROOM;

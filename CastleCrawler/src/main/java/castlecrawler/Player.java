@@ -10,10 +10,11 @@ package castlecrawler;
  */
 public class Player {
     
+    private int maxHp;
     private int hp;
     private int atk;
     private int def;
-    private int heal;
+    private int hea;
     
     private int level;
     private int expTo;
@@ -21,33 +22,35 @@ public class Player {
     private int row;
     private int col;
     
-    Player(int h, int he, int a, int d){
-        hp=10;
-        atk=a;
-        def=d;
-        heal=he;
+    Player(int r, int c){
+        maxHp=100;
+        hp=100;
+        atk=30;
+        def=10;
+        hea=1;
         
         level=1;
         expTo=10;
         
-        row=0;
-        col=0;
+        row=r;
+        col=c;
     }
     
     void levelUp(){
         level++;
         expTo=10;
-        hp+=10;
+        maxHp+=10;
         atk+=3;
         def+=1;
-        heal+=1;
+        hea+=1;
         // power up stat
+        heal();
     }
     
     void powerUp(Stat stat){
         switch (stat) {
             case HP:
-                hp+=10;
+                maxHp+=10;
                 break;
             case ATK:
                 atk+=3;
@@ -56,8 +59,29 @@ public class Player {
                 def+=1;
                 break;
             case HEAL:
-                heal+=1;
+                hea+=1;
                 break;
         }
+    }
+    
+    int attack(){
+        return atk;
+    }
+    
+    int defense(){
+        return def;
+    }
+    
+    int healthPoints(){
+        return hp;
+    }
+    
+    void heal(){
+        hp=Math.min(hp+hea,maxHp);
+    }
+    
+    int damage(int dmg){
+        hp-=dmg;
+        return hp;
     }
 }

@@ -10,9 +10,25 @@ package castlecrawler;
  */
 public class LootRoom implements Room {
     
+    private int exp;
+    private int points;
+    
+    LootRoom(int e, int p){
+        exp=e;
+        points=p;
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.LOOTROOM;
+    }
+    
+    public int getExp(){
+        return exp;
+    }
+    
+    public int getPoints(){
+        return points;
     }
     
     @Override
