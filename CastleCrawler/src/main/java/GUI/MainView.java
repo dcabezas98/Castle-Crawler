@@ -7,6 +7,8 @@ package GUI;
 import controller.Controller;
 import javax.swing.JOptionPane;
 
+import java.awt.Component;
+
 /**
  *
  * @author David Cabezas
@@ -22,10 +24,12 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         mapView = new StageView();
-        pmap.add(mapView);
-        
-        setTitle(appName);
+        pStage.add(mapView);
+        pStage.setOpaque(false);
+        revalidate();
         repaint();
+                
+        setTitle(appName);
         
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -42,6 +46,13 @@ public class MainView extends javax.swing.JFrame {
     
     public void updateView() {
         mapView.setStage(controller.getGameUniverse().getStage());
+        mapView.setVisible(true);
+        System.out.println("UPDATE VIEW");
+        
+        Component[] comps = pStage.getComponents();
+        revalidate();
+        repaint();
+        
     }
         
     public void showView() {
@@ -61,39 +72,28 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pmap = new javax.swing.JPanel();
+        pStage = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pmap.setBackground(new java.awt.Color(102, 102, 102));
-        pmap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout pmapLayout = new javax.swing.GroupLayout(pmap);
-        pmap.setLayout(pmapLayout);
-        pmapLayout.setHorizontalGroup(
-            pmapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 656, Short.MAX_VALUE)
-        );
-        pmapLayout.setVerticalGroup(
-            pmapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
-        );
+        pStage.setBackground(new java.awt.Color(255, 255, 255));
+        pStage.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
-                .addComponent(pmap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addComponent(pStage, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pmap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(pStage, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -135,6 +135,6 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel pmap;
+    private javax.swing.JPanel pStage;
     // End of variables declaration//GEN-END:variables
 }

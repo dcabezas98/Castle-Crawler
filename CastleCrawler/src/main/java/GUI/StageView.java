@@ -21,6 +21,10 @@ public class StageView extends javax.swing.JPanel {
      */
     public StageView() {
         initComponents();
+        
+        add(new javax.swing.JButton("1"));
+        revalidate();
+        repaint();
     }
     
     void setStage(Stage stage){
@@ -60,6 +64,7 @@ public class StageView extends javax.swing.JPanel {
                 pMap.add(rv);
             }
         }
+        revalidate();
         repaint();
     }
 
@@ -74,7 +79,8 @@ public class StageView extends javax.swing.JPanel {
 
         pMap = new javax.swing.JPanel();
 
-        pMap.setBackground(new java.awt.Color(204, 204, 204));
+        pMap.setBackground(new java.awt.Color(0, 0, 0));
+        pMap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pMap.setLayout(new java.awt.GridLayout(5, 5));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -83,14 +89,14 @@ public class StageView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pMap, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pMap, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

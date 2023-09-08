@@ -12,7 +12,7 @@ import castlecrawler.Room;
  */
 public abstract class RoomView extends javax.swing.JPanel {
 
-    public boolean selected = false;
+    public boolean selected = true;
     
     public boolean isSelected () {
         return selected;

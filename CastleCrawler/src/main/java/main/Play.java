@@ -21,12 +21,13 @@ public class Play {
         GameUniverse game = new GameUniverse(diff);
         
         MainView view = new MainView();
+        view.setVisible(true);
         
         Controller controller = new Controller(game, view);
         
         controller.start();
         
-        //System.out.println(game.getStage());
+        System.out.println(game.getStage());
     }
     
 }
