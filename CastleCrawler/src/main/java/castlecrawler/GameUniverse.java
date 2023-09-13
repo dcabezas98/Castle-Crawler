@@ -29,29 +29,19 @@ public class GameUniverse {
     }
     
     public boolean canMove(Move m){
-        boolean can = false;
-        switch(m){
-            case UP:
-                can = player.getRow() > 0;
-            case DOWN:
-                can = player.getRow() < stage.getNRows();
-            case LEFT:
-                can = player.getCol() > 0;
-            case RIGHT:
-                can = player.getCol() < stage.getNCols();
-        }
-        return can;
+        return stage.canMove(m);
     }
     
     public void move(Move m){
-        stage.move(m);
+        if(stage.canMove(m))
+            stage.move(m);
     }
     
     public int getRow(){
-        return player.getRow();
+        return stage.getCurrentRow();
     }
     
     public int getCol(){
-        return player.getCol();
+        return stage.getCurrentCol();
     }
 }

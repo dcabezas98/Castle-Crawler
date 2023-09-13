@@ -17,6 +17,7 @@ public class EventRoomView extends RoomView {
     public EventRoomView(boolean visible, boolean selected) {
         super(visible, selected);
         initComponents();
+        setBorder();
     }
     
     void setEventRoom(EventRoom r){

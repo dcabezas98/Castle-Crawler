@@ -17,13 +17,13 @@ public class EnemyRoomView extends RoomView {
     public EnemyRoomView(boolean visible, boolean selected) {
         super(visible, selected);
         initComponents();
+        setBorder();
     }
     
     void setEnemyRoom(EnemyRoom r){
         lAtk.setText(String.valueOf(r.getAttack()));
         lHP.setText(String.valueOf(r.getHP()));
         repaint();
-        revalidate();
     }
 
     /**

@@ -37,7 +37,6 @@ public class StageView extends javax.swing.JPanel {
         int nC = stage.getNCols();
         
         pMap.setLayout(new java.awt.GridLayout(nR, nC));
-        
         for (int i = 0; i < nR; i++){
             for (int j = 0; j < nC; j++){
                 r=map[i][j];

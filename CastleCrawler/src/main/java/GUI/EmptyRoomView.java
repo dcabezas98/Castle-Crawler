@@ -16,6 +16,7 @@ public class EmptyRoomView extends RoomView {
     public EmptyRoomView(boolean visible, boolean selected) {
         super(visible, selected);
         initComponents();
+        setBorder();
     }
 
     /**

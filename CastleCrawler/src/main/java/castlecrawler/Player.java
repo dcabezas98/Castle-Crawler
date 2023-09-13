@@ -21,9 +21,6 @@ public class Player {
     private int level;
     private int expTo;
     
-    private int row;
-    private int col;
-    
     Player(){
         maxHp=100;
         hp=100;
@@ -83,14 +80,4 @@ public class Player {
         hp-=dmg;
         return hp;
     }
-    
-    public int getRow(){
-        return row;
-    }
-    
-    public int getCol(){
-        return col;
-    }
-    
-
 }

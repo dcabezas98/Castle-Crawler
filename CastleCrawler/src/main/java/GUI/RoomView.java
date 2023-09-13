@@ -12,7 +12,15 @@ import castlecrawler.Room;
  */
 public abstract class RoomView extends javax.swing.JPanel {
     
-    RoomView(boolean visible, boolean selected){
+    private boolean visible = false;
+    private boolean selected = false;
+    
+    public RoomView (boolean v, boolean s){
+        visible = v;
+        selected = s;
+    }
+    
+    public void setBorder(){
         setOpaque(visible);
         if (selected)
             setBorder(javax.swing.BorderFactory.createMatteBorder(4, 4, 4, 4, new java.awt.Color(153, 51, 0)));

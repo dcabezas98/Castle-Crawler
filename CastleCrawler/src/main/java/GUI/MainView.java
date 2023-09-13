@@ -8,8 +8,6 @@ import castlecrawler.Move;
 import controller.Controller;
 import javax.swing.JOptionPane;
 
-import java.awt.Component;
-
 /**
  *
  * @author David Cabezas
@@ -39,7 +37,7 @@ public class MainView extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 controller.finish(0);
             }
-        });
+        });  
     }
     
     public void setController(Controller c) {
@@ -48,7 +46,13 @@ public class MainView extends javax.swing.JFrame {
     
     public void updateView() {
         
-        mapView.setStage(controller.getGameUniverse().getStage());    
+        mapView.setStage(controller.getGameUniverse().getStage());
+        
+        // Disabled during combat
+        bMD.setEnabled(controller.canMove(Move.DOWN));
+        bML.setEnabled(controller.canMove(Move.LEFT));
+        bMR.setEnabled(controller.canMove(Move.RIGHT));
+        bMU.setEnabled(controller.canMove(Move.UP));
         
         revalidate();
         repaint();   

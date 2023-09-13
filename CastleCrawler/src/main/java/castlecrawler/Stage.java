@@ -109,7 +109,6 @@ public class Stage {
                 break;
             case RIGHT:
                 currentC++;
-                break;
         }
         map[currentR][currentC].select();
         map[currentR][currentC].show();      
@@ -119,13 +118,16 @@ public class Stage {
         boolean can = false;
         switch(m){
             case UP:
-                can = currentR > 0;
+                can = (currentR > 0);
+                break;
             case DOWN:
-                can = currentR < nRows;
+                can = (currentR < nRows-1);
+                break;
             case LEFT:
-                can = currentC > 0;
+                can = (currentC > 0);
+                break;
             case RIGHT:
-                can = currentC < nCols;
+                can = (currentC < nCols-1);
         }
         return can;
     }    

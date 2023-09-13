@@ -16,6 +16,7 @@ public class StartRoomView extends RoomView {
     public StartRoomView(boolean visible, boolean selected) {
         super(visible, selected);
         initComponents();
+        setBorder();
     }
 
     /**

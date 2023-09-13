@@ -16,6 +16,7 @@ public class FinalRoomView extends RoomView {
     public FinalRoomView(boolean visible, boolean selected) {
         super(visible, selected);
         initComponents();
+        setBorder();
     }
 
     /**

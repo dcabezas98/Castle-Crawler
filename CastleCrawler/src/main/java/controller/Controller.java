@@ -39,8 +39,13 @@ public class Controller {
         return game;
     }
     
+    public boolean canMove(Move m){
+        return game.canMove(m);
+    }
+    
     public void move(Move m){
         game.move(m);
         view.updateView();
     }
+
 }
