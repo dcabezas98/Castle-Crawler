@@ -14,10 +14,9 @@ public class EventRoomView extends RoomView {
     /**
      * Creates new form RoomView
      */
-    public EventRoomView() {
+    public EventRoomView(boolean visible, boolean selected) {
+        super(visible, selected);
         initComponents();
-        
-        setOpaque(selected);
     }
     
     void setEventRoom(EventRoom r){
@@ -38,7 +37,7 @@ public class EventRoomView extends RoomView {
         lDescription = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 255));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.lightGray));
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 255));
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N

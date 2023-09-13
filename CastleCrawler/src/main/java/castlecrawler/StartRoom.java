@@ -8,8 +8,8 @@ package castlecrawler;
  *
  * @author David Cabezas
  */
-public class StartRoom implements Room {
-    
+public class StartRoom extends Room {
+        
     @Override
     public RoomType getType() {
         return RoomType.STARTROOM;

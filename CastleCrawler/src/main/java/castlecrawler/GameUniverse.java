@@ -4,6 +4,8 @@
  */
 package castlecrawler;
 
+import castlecrawler.Move;
+
 /**
  *
  * @author David Cabezas
@@ -13,6 +15,7 @@ public class GameUniverse {
     private Difficulty diff;
     private Dice dice;
     private Stage stage;
+    private Player player;
     
     public GameUniverse(Difficulty d){
  
@@ -23,5 +26,32 @@ public class GameUniverse {
     
     public Stage getStage(){
         return stage;
+    }
+    
+    public boolean canMove(Move m){
+        boolean can = false;
+        switch(m){
+            case UP:
+                can = player.getRow() > 0;
+            case DOWN:
+                can = player.getRow() < stage.getNRows();
+            case LEFT:
+                can = player.getCol() > 0;
+            case RIGHT:
+                can = player.getCol() < stage.getNCols();
+        }
+        return can;
+    }
+    
+    public void move(Move m){
+        stage.move(m);
+    }
+    
+    public int getRow(){
+        return player.getRow();
+    }
+    
+    public int getCol(){
+        return player.getCol();
     }
 }

@@ -21,45 +21,47 @@ public class StageView extends javax.swing.JPanel {
      */
     public StageView() {
         initComponents();
-        
-        add(new javax.swing.JButton("1"));
+       
         revalidate();
         repaint();
     }
     
     void setStage(Stage stage){
+        pMap.removeAll();
         Room[][] map = stage.getMap();
         
         Room r;
-        RoomView rv= new EmptyRoomView();
+        RoomView rv= new EmptyRoomView(false, false);
         
         int nR = stage.getNRows();
         int nC = stage.getNCols();
+        
+        pMap.setLayout(new java.awt.GridLayout(nR, nC));
         
         for (int i = 0; i < nR; i++){
             for (int j = 0; j < nC; j++){
                 r=map[i][j];
                 switch (r.getType()){
                     case EVENTROOM:
-                        rv = new EventRoomView();
+                        rv = new EventRoomView(r.isVisible(), r.selected());
                         ((EventRoomView) rv).setEventRoom((EventRoom)r);
                         break;
                     case ENEMYROOM:
-                        rv = new EnemyRoomView();
+                        rv = new EnemyRoomView(r.isVisible(), r.selected());
                         ((EnemyRoomView) rv).setEnemyRoom((EnemyRoom)r);
                         break;
                     case LOOTROOM:
-                        rv = new LootRoomView();
+                        rv = new LootRoomView(r.isVisible(), r.selected());
                         ((LootRoomView) rv).setLootRoom((LootRoom)r);
                         break;
                     case EMPTYROOM:
-                        rv = new EmptyRoomView();
+                        rv = new EmptyRoomView(r.isVisible(), r.selected());
                         break;
                     case FINALROOM:
-                        rv = new FinalRoomView();
+                        rv = new FinalRoomView(r.isVisible(), r.selected());
                         break;
                     case STARTROOM:
-                        rv = new StartRoomView();                   
+                        rv = new StartRoomView(r.isVisible(), r.selected());                   
                 }
                 pMap.add(rv);
             }

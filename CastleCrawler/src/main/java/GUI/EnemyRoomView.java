@@ -14,19 +14,14 @@ public class EnemyRoomView extends RoomView {
     /**
      * Creates new form RoomView
      */
-    public EnemyRoomView() {
+    public EnemyRoomView(boolean visible, boolean selected) {
+        super(visible, selected);
         initComponents();
-        
-        setOpaque(selected);
-        
-        repaint();
-        revalidate();
     }
     
     void setEnemyRoom(EnemyRoom r){
         lAtk.setText(String.valueOf(r.getAttack()));
         lHP.setText(String.valueOf(r.getHP()));
-        System.out.println("setEnemyRoom");
         repaint();
         revalidate();
     }
@@ -47,7 +42,7 @@ public class EnemyRoomView extends RoomView {
         lHP = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 153, 153));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153)));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));

@@ -8,7 +8,7 @@ package castlecrawler;
  *
  * @author David Cabezas
  */
-public class EventRoom implements Room {
+public class EventRoom extends Room {
     
     private String description;
     

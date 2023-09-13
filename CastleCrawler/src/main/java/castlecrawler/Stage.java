@@ -4,6 +4,7 @@
  */
 package castlecrawler;
 
+import castlecrawler.Move;
 import java.util.List;
 
 /**
@@ -17,6 +18,9 @@ public class Stage {
     private Room[][] map;
     private Difficulty diff;
     private Dice dice;
+    
+    private int currentR;
+    private int currentC;
     
     Stage(Difficulty d, int nR, int nC){
         diff = d;
@@ -39,8 +43,13 @@ public class Stage {
         List<Integer> seq = dice.randomSequence(nRows*nCols); // Shuffled room numbers
 
         int r = 0; // Room counter
-        map[seq.get(r)/nRows][seq.get(r)%nRows] = new StartRoom();
+        currentR = seq.get(r)/nRows;
+        currentC = seq.get(r)%nRows;
+        map[currentR][currentC] = new StartRoom();
+        map[currentR][currentC].show();
+        map[currentR][currentC].select();
         r++;
+        
         for (; r < nLootRoom+1; r++){
             
             // int[] ep = dice.getLootStats()
@@ -77,6 +86,49 @@ public class Stage {
     public int getNCols(){
         return nCols;
     }
+    
+    public int getCurrentRow(){
+        return currentR;
+    }
+    
+    public int getCurrentCol(){
+        return currentC;
+    }
+    
+    public void move(Move m){
+        map[currentR][currentC].deselect();           
+        switch (m){
+            case UP:
+                currentR--;
+                break;
+            case DOWN:
+                currentR++;
+                break;
+            case LEFT:
+                currentC--;
+                break;
+            case RIGHT:
+                currentC++;
+                break;
+        }
+        map[currentR][currentC].select();
+        map[currentR][currentC].show();      
+    }
+        
+    public boolean canMove(Move m){
+        boolean can = false;
+        switch(m){
+            case UP:
+                can = currentR > 0;
+            case DOWN:
+                can = currentR < nRows;
+            case LEFT:
+                can = currentC > 0;
+            case RIGHT:
+                can = currentC < nCols;
+        }
+        return can;
+    }    
     
     @Override
     public String toString(){

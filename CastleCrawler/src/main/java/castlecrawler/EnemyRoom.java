@@ -8,7 +8,7 @@ package castlecrawler;
  *
  * @author David Cabezas
  */
-public class EnemyRoom implements Room {
+public class EnemyRoom extends Room {
     
     private int atk;
     private int hp;

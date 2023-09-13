@@ -14,10 +14,9 @@ public class LootRoomView extends RoomView {
     /**
      * Creates new form RoomView
      */
-    public LootRoomView() {
+    public LootRoomView(boolean visible, boolean selected) {
+        super(visible, selected);
         initComponents();
-        
-        setOpaque(selected);
     }
     
     void setLootRoom(LootRoom r){
@@ -42,7 +41,7 @@ public class LootRoomView extends RoomView {
         lPoints = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 0));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.lightGray));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));

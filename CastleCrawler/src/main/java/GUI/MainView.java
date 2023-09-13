@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import castlecrawler.Move;
 import controller.Controller;
 import javax.swing.JOptionPane;
 
@@ -24,6 +25,7 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         mapView = new StageView();
+        
         pStage.add(mapView);
         pStage.setOpaque(false);
         revalidate();
@@ -45,14 +47,11 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public void updateView() {
-        mapView.setStage(controller.getGameUniverse().getStage());
-        mapView.setVisible(true);
-        System.out.println("UPDATE VIEW");
         
-        Component[] comps = pStage.getComponents();
+        mapView.setStage(controller.getGameUniverse().getStage());    
+        
         revalidate();
-        repaint();
-        
+        repaint();   
     }
         
     public void showView() {
@@ -73,31 +72,101 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         pStage = new javax.swing.JPanel();
+        bML = new javax.swing.JButton();
+        bMD = new javax.swing.JButton();
+        bMU = new javax.swing.JButton();
+        bMR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pStage.setBackground(new java.awt.Color(255, 255, 255));
         pStage.setBorder(null);
 
+        bML.setText("LEFT");
+        bML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bMLActionPerformed(evt);
+            }
+        });
+
+        bMD.setText("DOWN");
+        bMD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bMDActionPerformed(evt);
+            }
+        });
+
+        bMU.setText("UP");
+        bMU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bMUActionPerformed(evt);
+            }
+        });
+
+        bMR.setText("RIGHT");
+        bMR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bMRActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(215, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bML, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bMR, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(bMU, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(bMD, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(pStage, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pStage, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bMU)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bMR)
+                            .addComponent(bML))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bMD))
+                    .addComponent(pStage, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMDActionPerformed
+        controller.move(Move.DOWN);
+    }//GEN-LAST:event_bMDActionPerformed
+
+    private void bMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMLActionPerformed
+        controller.move(Move.LEFT);
+    }//GEN-LAST:event_bMLActionPerformed
+
+    private void bMUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMUActionPerformed
+        controller.move(Move.UP);
+    }//GEN-LAST:event_bMUActionPerformed
+
+    private void bMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMRActionPerformed
+        controller.move(Move.RIGHT);
+    }//GEN-LAST:event_bMRActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +204,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bMD;
+    private javax.swing.JButton bML;
+    private javax.swing.JButton bMR;
+    private javax.swing.JButton bMU;
     private javax.swing.JPanel pStage;
     // End of variables declaration//GEN-END:variables
 }

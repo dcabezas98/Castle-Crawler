@@ -4,6 +4,8 @@
  */
 package castlecrawler;
 
+import castlecrawler.Move;
+
 /**
  *
  * @author David Cabezas
@@ -22,7 +24,7 @@ public class Player {
     private int row;
     private int col;
     
-    Player(int r, int c){
+    Player(){
         maxHp=100;
         hp=100;
         atk=30;
@@ -31,12 +33,9 @@ public class Player {
         
         level=1;
         expTo=10;
-        
-        row=r;
-        col=c;
     }
     
-    void levelUp(){
+    public void levelUp(){
         level++;
         expTo=10;
         maxHp+=10;
@@ -47,7 +46,7 @@ public class Player {
         heal();
     }
     
-    void powerUp(Stat stat){
+    public void powerUp(Stat stat){
         switch (stat) {
             case HP:
                 maxHp+=10;
@@ -64,24 +63,34 @@ public class Player {
         }
     }
     
-    int attack(){
+    public int attack(){
         return atk;
     }
     
-    int defense(){
+    public int defense(){
         return def;
     }
     
-    int healthPoints(){
+    public int healthPoints(){
         return hp;
     }
     
-    void heal(){
+    public void heal(){
         hp=Math.min(hp+hea,maxHp);
     }
     
-    int damage(int dmg){
+    public int damage(int dmg){
         hp-=dmg;
         return hp;
     }
+    
+    public int getRow(){
+        return row;
+    }
+    
+    public int getCol(){
+        return col;
+    }
+    
+
 }

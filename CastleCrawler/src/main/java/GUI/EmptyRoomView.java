@@ -13,10 +13,9 @@ public class EmptyRoomView extends RoomView {
     /**
      * Creates new form RoomView
      */
-    public EmptyRoomView() {
+    public EmptyRoomView(boolean visible, boolean selected) {
+        super(visible, selected);
         initComponents();
-        
-        setOpaque(selected);
     }
 
     /**
@@ -31,7 +30,7 @@ public class EmptyRoomView extends RoomView {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.lightGray));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));

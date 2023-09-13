@@ -8,7 +8,7 @@ package castlecrawler;
  *
  * @author David Cabezas
  */
-public class LootRoom implements Room {
+public class LootRoom extends Room {
     
     private int exp;
     private int points;

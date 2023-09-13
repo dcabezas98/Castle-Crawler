@@ -6,6 +6,8 @@ package controller;
 
 import GUI.MainView;
 import castlecrawler.GameUniverse;
+import castlecrawler.Move;
+import castlecrawler.Player;
 
 /**
  *
@@ -14,6 +16,7 @@ import castlecrawler.GameUniverse;
 public class Controller {
     
     private GameUniverse game;
+    private Player player;
     private MainView view;
     
     public Controller(GameUniverse g, MainView v){
@@ -34,5 +37,10 @@ public class Controller {
     
     public GameUniverse getGameUniverse(){
         return game;
-    }    
+    }
+    
+    public void move(Move m){
+        game.move(m);
+        view.updateView();
+    }
 }
