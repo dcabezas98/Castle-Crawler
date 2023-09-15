@@ -60,6 +60,14 @@ public class Player {
         }
     }
     
+    public int getHp(){
+        return hp;
+    }
+    
+    public int getMaxHp(){
+        return maxHp;
+    }
+    
     public int attack(){
         return atk;
     }
@@ -68,16 +76,24 @@ public class Player {
         return def;
     }
     
-    public int healthPoints(){
-        return hp;
+    public int getLevel(){
+        return level;
+    }
+    
+    public int getXPto(){
+        return expTo;
+    }
+    
+    public int getHeal(){
+        return hea;
     }
     
     public void heal(){
         hp=Math.min(hp+hea,maxHp);
     }
     
-    public int damage(int dmg){
+    public boolean damage(int dmg){
         hp-=dmg;
-        return hp;
+        return hp <= 0; // Death
     }
 }

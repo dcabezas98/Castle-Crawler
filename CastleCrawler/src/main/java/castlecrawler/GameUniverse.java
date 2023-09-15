@@ -16,16 +16,45 @@ public class GameUniverse {
     private Dice dice;
     private Stage stage;
     private Player player;
+    private EnemyRoom enemy;
+    private GameState state;
+    
+    private boolean canPeek;
     
     public GameUniverse(Difficulty d){
  
         diff = d;
         dice = new Dice(d);
         stage = new Stage(d, 5, 5);
+        player = new Player();
+        
+        state = GameState.EXPLORING;
+    }
+    
+    public CombatResult combat(){
+        
+        state = GameState.EXPLORING; // If combat ends
+        
+        if(enemy.damage(player.attack())) // Enemy dies
+            return CombatResult.WIN;
+        
+        if(player.damage(enemy.getAttack())) // Player dies
+            return CombatResult.LOST;
+        
+        state = GameState.COMBAT; // Combat has not ended
+        return CombatResult.UNFINISHED;
+    }
+    
+    public void setEnemy(EnemyRoom e){
+        enemy = e;
     }
     
     public Stage getStage(){
         return stage;
+    }
+    
+    public Player getPlayer(){
+        return player;
     }
     
     public boolean canMove(Move m){

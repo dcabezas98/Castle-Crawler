@@ -23,9 +23,13 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         mapView = new StageView();
+        playerView = new PlayerView();
         
         pStage.add(mapView);
         pStage.setOpaque(false);
+        
+        pPlayer.add(playerView);
+        
         revalidate();
         repaint();
                 
@@ -47,6 +51,7 @@ public class MainView extends javax.swing.JFrame {
     public void updateView() {
         
         mapView.setStage(controller.getGameUniverse().getStage());
+        playerView.setPlayer(controller.getGameUniverse().getPlayer());
         
         // Disabled during combat
         bMD.setEnabled(controller.canMove(Move.DOWN));
@@ -80,11 +85,17 @@ public class MainView extends javax.swing.JFrame {
         bMD = new javax.swing.JButton();
         bMU = new javax.swing.JButton();
         bMR = new javax.swing.JButton();
+        pPlayer = new javax.swing.JPanel();
+        bAttack = new javax.swing.JButton();
+        bFlee = new javax.swing.JButton();
+        bPeek = new javax.swing.JButton();
+        bLoot = new javax.swing.JButton();
+        pEnemy = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pStage.setBackground(new java.awt.Color(255, 255, 255));
-        pStage.setBorder(null);
+        pStage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MAP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         bML.setText("LEFT");
         bML.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +125,35 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        pPlayer.setBackground(new java.awt.Color(255, 255, 255));
+        pPlayer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PLAYER", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        bAttack.setText("Attack");
+        bAttack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAttackActionPerformed(evt);
+            }
+        });
+
+        bFlee.setText("Flee");
+        bFlee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFleeActionPerformed(evt);
+            }
+        });
+
+        bPeek.setText("Peek");
+        bPeek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPeekActionPerformed(evt);
+            }
+        });
+
+        bLoot.setText("Loot");
+
+        pEnemy.setBackground(new java.awt.Color(255, 255, 255));
+        pEnemy.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ENEMY", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,17 +161,36 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(bML, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bMR, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(bMU, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(bMD, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 51, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(bML, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bMR, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(bMU, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(bMD, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(bPeek, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bLoot, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(bAttack, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bFlee, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(pEnemy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pStage, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -141,7 +200,18 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(pPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pEnemy, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bAttack)
+                            .addComponent(bFlee))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bPeek)
+                            .addComponent(bLoot))
+                        .addGap(18, 18, 18)
                         .addComponent(bMU)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -171,6 +241,18 @@ public class MainView extends javax.swing.JFrame {
     private void bMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMRActionPerformed
         controller.move(Move.RIGHT);
     }//GEN-LAST:event_bMRActionPerformed
+
+    private void bAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAttackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bAttackActionPerformed
+
+    private void bFleeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFleeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bFleeActionPerformed
+
+    private void bPeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPeekActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bPeekActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,10 +290,16 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAttack;
+    private javax.swing.JButton bFlee;
+    private javax.swing.JButton bLoot;
     private javax.swing.JButton bMD;
     private javax.swing.JButton bML;
     private javax.swing.JButton bMR;
     private javax.swing.JButton bMU;
+    private javax.swing.JButton bPeek;
+    private javax.swing.JPanel pEnemy;
+    private javax.swing.JPanel pPlayer;
     private javax.swing.JPanel pStage;
     // End of variables declaration//GEN-END:variables
 }

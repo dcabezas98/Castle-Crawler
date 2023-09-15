@@ -26,6 +26,11 @@ public class EnemyRoom extends Room {
         return hp;
     }
     
+    public boolean damage(int dmg){
+        hp-=dmg;
+        return hp <= 0; // Death
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.ENEMYROOM;
