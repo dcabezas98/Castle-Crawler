@@ -23,6 +23,7 @@ public class Controller {
         game = g;
         view = v;
         view.setController(this);
+        view.createKeyBindings();
     }
     
     public void start(){
@@ -47,6 +48,4 @@ public class Controller {
         game.move(m);
         view.updateView();
     }
-
-    
 }

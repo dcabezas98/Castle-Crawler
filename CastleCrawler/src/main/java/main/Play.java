@@ -26,8 +26,6 @@ public class Play {
         Controller controller = new Controller(game, view);
         
         controller.start();
-        
-        System.out.println(game.getStage());
     }
     
 }

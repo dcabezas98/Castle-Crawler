@@ -96,22 +96,24 @@ public class Stage {
     }
     
     public void move(Move m){
-        map[currentR][currentC].deselect();           
-        switch (m){
-            case UP:
-                currentR--;
-                break;
-            case DOWN:
-                currentR++;
-                break;
-            case LEFT:
-                currentC--;
-                break;
-            case RIGHT:
-                currentC++;
+        if (canMove(m)){
+            map[currentR][currentC].deselect();           
+            switch (m){
+                case UP:
+                    currentR--;
+                    break;
+                case DOWN:
+                    currentR++;
+                    break;
+                case LEFT:
+                    currentC--;
+                    break;
+                case RIGHT:
+                    currentC++;
+            }
+            map[currentR][currentC].select();
+            map[currentR][currentC].show();   
         }
-        map[currentR][currentC].select();
-        map[currentR][currentC].show();      
     }
         
     public boolean canMove(Move m){

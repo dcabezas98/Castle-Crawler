@@ -6,13 +6,19 @@ package GUI;
 
 import castlecrawler.Move;
 import controller.Controller;
+import castlecrawler.MoveAction;
 import javax.swing.JOptionPane;
+import javax.swing.JComponent;
+import java.awt.event.KeyEvent;
+import javax.swing.KeyStroke;
 
 /**
  *
  * @author David Cabezas
  */
 public class MainView extends javax.swing.JFrame {
+    
+    private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
     
     static Controller controller;
     private String appName = "Castle Crawler";
@@ -69,6 +75,19 @@ public class MainView extends javax.swing.JFrame {
     
     public boolean confirmExitMessage() {
         return (JOptionPane.showConfirmDialog(this, "Exit? Are you sure?", appName, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+    }
+    
+    public void createKeyBindings(){
+        
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP,0, false), MoveAction.MOVE_UP);
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0, false), MoveAction.MOVE_DOWN);
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0, false), MoveAction.MOVE_LEFT);
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0, false), MoveAction.MOVE_RIGHT);
+        
+        mapView.getActionMap().put(MoveAction.MOVE_UP, new MoveAction(controller,Move.UP));
+        mapView.getActionMap().put(MoveAction.MOVE_DOWN, new MoveAction(controller,Move.DOWN));
+        mapView.getActionMap().put(MoveAction.MOVE_LEFT, new MoveAction(controller,Move.LEFT));
+        mapView.getActionMap().put(MoveAction.MOVE_RIGHT, new MoveAction(controller,Move.RIGHT));
     }
 
     /**
