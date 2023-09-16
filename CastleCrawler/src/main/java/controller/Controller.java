@@ -5,6 +5,9 @@
 package controller;
 
 import GUI.MainView;
+import castlecrawler.GameState;
+import castlecrawler.EscapeResult;
+import castlecrawler.CombatResult;
 import castlecrawler.GameUniverse;
 import castlecrawler.Move;
 import castlecrawler.Player;
@@ -32,8 +35,29 @@ public class Controller {
     }
     
     public void finish(int i) {
-        if (view.confirmExitMessage())
-            System.exit(i);
+        if (i == 0){
+            if (view.confirmExitMessage())
+                System.exit(0);
+        }
+        if (i == 1){
+            view.deathMessage();
+            System.exit(0);
+        }
+    }
+    
+    public void flee(){
+        EscapeResult result = game.flee();
+        view.escapeMessage(result==EscapeResult.YES);
+        view.updateView();
+        if(result == EscapeResult.DEATH)
+            finish(1);
+    }
+    
+    public void combat(){
+        CombatResult result = game.combat();
+        view.updateView();
+        if(result == CombatResult.LOST)
+            finish(1);
     }
     
     public GameUniverse getGameUniverse(){
@@ -47,5 +71,9 @@ public class Controller {
     public void move(Move m){
         game.move(m);
         view.updateView();
+    }
+    
+    public GameState getGameState(){
+        return game.getGameState();
     }
 }

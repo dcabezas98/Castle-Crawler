@@ -15,8 +15,6 @@ public class EmptyRoom extends Room {
         return RoomType.EMPTYROOM;
     }
     
-    
-    
     @Override
     public String toString(){
         return "0";

@@ -62,7 +62,7 @@ public class Stage {
             // int[] ahep = dice.getEnemyStats()
             int a = 10;
             int h = 50;
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EnemyRoom(a,h);
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EnemyRoom(a,h, 1, "TODO: enemy");
         }
         for (; r < nEventRoom+nEnemyRoom+nLootRoom+1; r++){
             // String des = dealer.getEvent() 
@@ -93,6 +93,13 @@ public class Stage {
     
     public int getCurrentCol(){
         return currentC;
+    }
+    
+    public void emptyCurrentRoom(){
+        EmptyRoom e = new EmptyRoom();
+        e.show();
+        e.select();
+        map[currentR][currentC] = e;
     }
     
     public void move(Move m){
@@ -132,7 +139,11 @@ public class Stage {
                 can = (currentC < nCols-1);
         }
         return can;
-    }    
+    }
+
+    public Room getCurrentRoom(){
+        return map[currentR][currentC];
+    }
     
     @Override
     public String toString(){

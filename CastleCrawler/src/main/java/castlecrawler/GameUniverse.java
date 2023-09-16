@@ -18,6 +18,7 @@ public class GameUniverse {
     private Player player;
     private EnemyRoom enemy;
     private GameState state;
+    private Room currentRoom;
     
     private boolean canPeek;
     
@@ -31,17 +32,35 @@ public class GameUniverse {
         state = GameState.EXPLORING;
     }
     
+    public EscapeResult flee(){
+        if(state == GameState.COMBAT){
+            if(!dice.playerStays((float) enemy.getHp()/enemy.getMaxHp())){
+                state = GameState.EXPLORING;
+                return EscapeResult.YES;
+            } else if(player.damage(enemy.getAttack())) // Player dies
+                    return EscapeResult.DEATH;
+        }
+        return EscapeResult.NO;
+    }
+    
     public CombatResult combat(){
         
-        state = GameState.EXPLORING; // If combat ends
+        if(state == GameState.COMBAT){
         
-        if(enemy.damage(player.attack())) // Enemy dies
-            return CombatResult.WIN;
-        
-        if(player.damage(enemy.getAttack())) // Player dies
-            return CombatResult.LOST;
-        
-        state = GameState.COMBAT; // Combat has not ended
+            state = GameState.EXPLORING; // If combat ends
+
+            if(enemy.damage(player.attack())){ // Enemy dies
+                stage.emptyCurrentRoom();
+                player.heal();
+                player.giveExp(enemy.getExp());
+                return CombatResult.WIN;
+            }
+
+            if(player.damage(enemy.getAttack())) // Player dies
+                return CombatResult.LOST;
+
+            state = GameState.COMBAT; // Combat has not ended
+        }
         return CombatResult.UNFINISHED;
     }
     
@@ -58,12 +77,24 @@ public class GameUniverse {
     }
     
     public boolean canMove(Move m){
+        if(state == GameState.COMBAT)
+            return false;
         return stage.canMove(m);
     }
     
     public void move(Move m){
-        if(stage.canMove(m))
+        if(canMove(m))
             stage.move(m);
+        
+        Room cRoom = stage.getCurrentRoom();
+        if(cRoom.getType()==RoomType.ENEMYROOM){
+            state = GameState.COMBAT;
+            enemy = (EnemyRoom) cRoom;
+        }
+    }
+    
+    public GameState getGameState(){
+        return state;
     }
     
     public int getRow(){

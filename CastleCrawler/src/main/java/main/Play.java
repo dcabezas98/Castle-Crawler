@@ -16,7 +16,7 @@ public class Play {
 
     public static void main(String[] args) {
         
-        castlecrawler.Difficulty diff = castlecrawler.Difficulty.NORMAL;
+        castlecrawler.Difficulty diff = castlecrawler.Difficulty.HARD;
         
         GameUniverse game = new GameUniverse(diff);
         

@@ -6,7 +6,9 @@ package GUI;
 
 import castlecrawler.Move;
 import controller.Controller;
+import castlecrawler.GameState;
 import castlecrawler.MoveAction;
+import castlecrawler.EnemyRoom;
 import javax.swing.JOptionPane;
 import javax.swing.JComponent;
 import java.awt.event.KeyEvent;
@@ -26,10 +28,15 @@ public class MainView extends javax.swing.JFrame {
     private PlayerView playerView;
     private StageView mapView;
     
+    private EnemyView enemyView;
+    
     public MainView() {
         initComponents();
         mapView = new StageView();
         playerView = new PlayerView();
+        enemyView = new EnemyView();
+        
+        pEnemy.add(enemyView);
         
         pStage.add(mapView);
         pStage.setOpaque(false);
@@ -58,12 +65,20 @@ public class MainView extends javax.swing.JFrame {
         
         mapView.setStage(controller.getGameUniverse().getStage());
         playerView.setPlayer(controller.getGameUniverse().getPlayer());
+        if(controller.getGameUniverse().getGameState() == GameState.COMBAT){
+            enemyView.setVisible(true);
+            enemyView.setEnemy((EnemyRoom) controller.getGameUniverse().getStage().getCurrentRoom());
+        } else
+            enemyView.setVisible(false);
         
-        // Disabled during combat
         bMD.setEnabled(controller.canMove(Move.DOWN));
         bML.setEnabled(controller.canMove(Move.LEFT));
         bMR.setEnabled(controller.canMove(Move.RIGHT));
         bMU.setEnabled(controller.canMove(Move.UP));
+        
+        bAttack.setEnabled(controller.getGameState()==GameState.COMBAT);
+        bFlee.setEnabled(controller.getGameState()==GameState.COMBAT);
+        bPeek.setEnabled(controller.getGameState()==GameState.EXPLORING);
         
         revalidate();
         repaint();   
@@ -75,6 +90,17 @@ public class MainView extends javax.swing.JFrame {
     
     public boolean confirmExitMessage() {
         return (JOptionPane.showConfirmDialog(this, "Exit? Are you sure?", appName, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+    }
+    
+    public void deathMessage(){
+        JOptionPane.showMessageDialog(this,"You died :(\n Thanks for playing!");
+    }
+    
+    public void escapeMessage(boolean escapes){
+        if(escapes)
+            JOptionPane.showMessageDialog(this, "You escaped successfully!");
+        else
+            JOptionPane.showMessageDialog(this, "You couldn't escape!");
     }
     
     public void createKeyBindings(){
@@ -262,11 +288,11 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_bMRActionPerformed
 
     private void bAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAttackActionPerformed
-        // TODO add your handling code here:
+        controller.combat();
     }//GEN-LAST:event_bAttackActionPerformed
 
     private void bFleeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFleeActionPerformed
-        // TODO add your handling code here:
+        controller.flee();
     }//GEN-LAST:event_bFleeActionPerformed
 
     private void bPeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPeekActionPerformed

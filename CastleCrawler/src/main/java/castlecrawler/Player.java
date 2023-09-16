@@ -21,12 +21,14 @@ public class Player {
     private int level;
     private int expTo;
     
+    private int peeks;
+    
     Player(){
         maxHp=100;
         hp=100;
         atk=30;
-        def=10;
-        hea=1;
+        hea=2;
+        peeks=1;
         
         level=1;
         expTo=10;
@@ -37,8 +39,8 @@ public class Player {
         expTo=10;
         maxHp+=10;
         atk+=3;
-        def+=1;
-        hea+=1;
+        hea+=2;
+        peeks+=1;
         // power up stat
         heal();
     }
@@ -50,9 +52,6 @@ public class Player {
                 break;
             case ATK:
                 atk+=3;
-                break;
-            case DEF:
-                def+=1;
                 break;
             case HEAL:
                 hea+=1;
@@ -71,9 +70,14 @@ public class Player {
     public int attack(){
         return atk;
     }
+
+    public boolean canPeek(){
+        return peeks>0;
+    }
     
-    public int defense(){
-        return def;
+    public void peek(){
+        if(canPeek())
+            peeks--;
     }
     
     public int getLevel(){
@@ -95,5 +99,11 @@ public class Player {
     public boolean damage(int dmg){
         hp-=dmg;
         return hp <= 0; // Death
+    }
+    
+    public void giveExp(int e){
+        expTo-=e;
+        if(expTo<=0)
+            levelUp();
     }
 }

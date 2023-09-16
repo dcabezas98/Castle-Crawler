@@ -22,7 +22,7 @@ public class EnemyRoomView extends RoomView {
     
     void setEnemyRoom(EnemyRoom r){
         lAtk.setText(String.valueOf(r.getAttack()));
-        lHP.setText(String.valueOf(r.getHP()));
+        lHP.setText(String.valueOf(r.getHp()));
         repaint();
     }
 

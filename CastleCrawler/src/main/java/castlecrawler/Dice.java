@@ -21,6 +21,7 @@ public class Dice {
     private float ENEMYPROB2;
     private float EVENTPROB2;
     private float LOOTPROB2;
+    private float STAYPROB;
     private Difficulty dif;
     private Random generator;
     
@@ -31,6 +32,7 @@ public class Dice {
         EVENTPROB2 = 0.15f;
         LOOTPROB1 = 0.1f;
         LOOTPROB2 = 0.3f;
+        STAYPROB = 0.5f;
         generator = new Random();
         dif = d.length>0 ? d[0] : Difficulty.NORMAL;
         
@@ -39,11 +41,13 @@ public class Dice {
             ENEMYPROB2 = 0.5f;
             LOOTPROB1 = 0.15f;            
             LOOTPROB2 = 0.35f;
+            STAYPROB = 0.4f;
         } else if (dif==Difficulty.HARD){
             ENEMYPROB1 = 0.5f;
             ENEMYPROB2 = 0.6f;
             LOOTPROB1 = 0.05f;
             LOOTPROB2 = 0.25f;
+            STAYPROB = 0.6f;
         }
     }
     
@@ -60,6 +64,11 @@ public class Dice {
     int nEventRoom(int size){
         float x = generator.nextFloat()*(EVENTPROB2-EVENTPROB1)+EVENTPROB1;
         return Math.round(size*x);
+    }
+    
+    boolean playerStays(float enemyHp){
+        float x = generator.nextFloat();
+        return enemyHp*STAYPROB>x;
     }
     
     List<Integer> randomSequence(int size) {

@@ -21,7 +21,6 @@ public class PlayerView extends javax.swing.JPanel {
     void setPlayer(Player p){
         lAtk.setText(String.valueOf(p.attack()));
         lHP.setText(String.valueOf(p.getHp())+"/"+p.getMaxHp());
-        lDef.setText(String.valueOf(p.defense()));
         lHeal.setText(String.valueOf(p.getHeal()));
         lLevel.setText(String.valueOf(p.getLevel()));
         lXP.setText(String.valueOf(p.getXPto()));
@@ -44,7 +43,7 @@ public class PlayerView extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         lHP = new javax.swing.JLabel();
         lAtk = new javax.swing.JLabel();
-        lDef = new javax.swing.JLabel();
+        lPeeks = new javax.swing.JLabel();
         lHeal = new javax.swing.JLabel();
         lXP = new javax.swing.JLabel();
         lLevel = new javax.swing.JLabel();
@@ -58,7 +57,7 @@ public class PlayerView extends javax.swing.JPanel {
         jLabel2.setText("Atk");
 
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jLabel3.setText("Def");
+        jLabel3.setText("Peeks");
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel4.setText("Heal");
@@ -77,9 +76,9 @@ public class PlayerView extends javax.swing.JPanel {
         lAtk.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lAtk.setText("Atk");
 
-        lDef.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        lDef.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lDef.setText("Def");
+        lPeeks.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lPeeks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lPeeks.setText("Peeks");
 
         lHeal.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         lHeal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -106,22 +105,22 @@ public class PlayerView extends javax.swing.JPanel {
                         .addComponent(lHP))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(lXP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(67, 74, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lDef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lAtk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lHeal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(lLevel, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(lLevel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lPeeks, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,13 +136,13 @@ public class PlayerView extends javax.swing.JPanel {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lDef)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel4)
+                    .addComponent(lHeal))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lHeal)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(lPeeks))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lLevel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -164,10 +163,10 @@ public class PlayerView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lAtk;
-    private javax.swing.JLabel lDef;
     private javax.swing.JLabel lHP;
     private javax.swing.JLabel lHeal;
     private javax.swing.JLabel lLevel;
+    private javax.swing.JLabel lPeeks;
     private javax.swing.JLabel lXP;
     // End of variables declaration//GEN-END:variables
 }
