@@ -9,5 +9,5 @@ package castlecrawler;
  * @author David Cabezas
  */
 public enum CombatResult {
-    WIN, LOST, UNFINISHED;
+    WIN, LOST, UNFINISHED, LEVELUP;
 }

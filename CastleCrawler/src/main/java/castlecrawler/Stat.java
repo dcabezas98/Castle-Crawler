@@ -9,5 +9,5 @@ package castlecrawler;
  * @author David Cabezas
  */
 public enum Stat {
-    HP, ATK, DEF, HEAL;
+    HP, ATK, HEAL;
 }

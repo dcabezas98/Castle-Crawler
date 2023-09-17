@@ -15,20 +15,21 @@ public class Player {
     private int maxHp;
     private int hp;
     private int atk;
-    private int def;
+    private int points;
     private int hea;
     
     private int level;
     private int expTo;
     
-    private int peeks;
+    private boolean canPeek;
     
     Player(){
         maxHp=100;
         hp=100;
         atk=30;
         hea=2;
-        peeks=1;
+        canPeek=true;
+        points=0;
         
         level=1;
         expTo=10;
@@ -40,8 +41,6 @@ public class Player {
         maxHp+=10;
         atk+=3;
         hea+=2;
-        peeks+=1;
-        // power up stat
         heal();
     }
     
@@ -54,7 +53,7 @@ public class Player {
                 atk+=3;
                 break;
             case HEAL:
-                hea+=1;
+                hea+=2;
                 break;
         }
     }
@@ -72,12 +71,15 @@ public class Player {
     }
 
     public boolean canPeek(){
-        return peeks>0;
+        return canPeek;
     }
     
     public void peek(){
-        if(canPeek())
-            peeks--;
+        canPeek=false;
+    }
+    
+    public void recoverPeek(){
+        canPeek=true;
     }
     
     public int getLevel(){
@@ -92,6 +94,10 @@ public class Player {
         return hea;
     }
     
+    public int getpoints(){
+        return points;
+    }
+    
     public void heal(){
         hp=Math.min(hp+hea,maxHp);
     }
@@ -101,9 +107,27 @@ public class Player {
         return hp <= 0; // Death
     }
     
-    public void giveExp(int e){
+    public boolean giveExp(int e){
         expTo-=e;
-        if(expTo<=0)
+        if(expTo<=0){
             levelUp();
+            return true;
+        }
+        return false;
+    }
+    
+    public void givePoints(int p){
+        points+=p;
+    }
+    
+    public int getPoints(){
+        return points;
+    }
+    
+    public boolean giveLoot(LootRoom r){
+        
+        points+=r.getPoints();
+        
+        return giveExp(r.getExp());
     }
 }

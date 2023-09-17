@@ -18,14 +18,16 @@ public class Stage {
     private Room[][] map;
     private Difficulty diff;
     private Dice dice;
+    private int number;
     
     private int currentR;
     private int currentC;
     
-    Stage(Difficulty d, int nR, int nC){
+    Stage(Difficulty d, int n, int nR, int nC){
         diff = d;
         nRows=nR;
         nCols=nC;
+        number = n;
         map = new Room[nRows][nCols];
         dice = new Dice(diff);
         
@@ -139,6 +141,25 @@ public class Stage {
                 can = (currentC < nCols-1);
         }
         return can;
+    }
+    
+    public void peek(){
+        if(currentR>0)
+            map[currentR-1][currentC].show();
+        if(currentC>0)
+            map[currentR][currentC-1].show();
+        if(currentR < nRows-1)
+            map[currentR+1][currentC].show();
+        if(currentC < nCols-1)
+            map[currentR][currentC+1].show();
+    }
+    
+    public boolean canLoot(){
+        return getCurrentRoom().getType()==RoomType.LOOTROOM;
+    }
+    
+    public int getStageNumber(){
+        return number;
     }
 
     public Room getCurrentRoom(){

@@ -17,6 +17,7 @@ public class GameUniverse {
     private Stage stage;
     private Player player;
     private EnemyRoom enemy;
+    private LootRoom loot;
     private GameState state;
     private Room currentRoom;
     
@@ -26,10 +27,17 @@ public class GameUniverse {
  
         diff = d;
         dice = new Dice(d);
-        stage = new Stage(d, 5, 5);
+        stage = new Stage(d, 1, 5, 5);
         player = new Player();
         
         state = GameState.EXPLORING;
+    }
+    
+    public void nextStage(){
+        stage = new Stage(diff, stage.getStageNumber()+1, 5, 5);
+        player.recoverPeek();
+        player.heal();
+        player.givePoints(10);
     }
     
     public EscapeResult flee(){
@@ -52,7 +60,9 @@ public class GameUniverse {
             if(enemy.damage(player.attack())){ // Enemy dies
                 stage.emptyCurrentRoom();
                 player.heal();
-                player.giveExp(enemy.getExp());
+                player.givePoints(1);
+                if(player.giveExp(enemy.getExp()))
+                    return CombatResult.LEVELUP;
                 return CombatResult.WIN;
             }
 
@@ -62,6 +72,10 @@ public class GameUniverse {
             state = GameState.COMBAT; // Combat has not ended
         }
         return CombatResult.UNFINISHED;
+    }
+    
+    public void powerUp(Stat s){
+        player.powerUp(s);
     }
     
     public void setEnemy(EnemyRoom e){
@@ -76,21 +90,61 @@ public class GameUniverse {
         return player;
     }
     
+    public boolean canPeek(){
+        if(state!=GameState.EXPLORING)
+            return false;
+        return player.canPeek();
+    }
+    
+    public void peek(){
+        if(canPeek()){
+            player.peek();
+            stage.peek();
+        }
+    }
+    
+    public boolean canLoot(){
+        if(state!=GameState.EXPLORING)
+            return false;
+        return stage.canLoot();
+    }
+    
+    public boolean loot(){
+        boolean levelUp = false;
+        if(canLoot()){
+            levelUp =player.giveLoot(loot);
+            stage.emptyCurrentRoom();
+        }
+        return levelUp;
+    }
+    
     public boolean canMove(Move m){
         if(state == GameState.COMBAT)
             return false;
         return stage.canMove(m);
     }
     
-    public void move(Move m){
+    public RoomType move(Move m){
         if(canMove(m))
             stage.move(m);
         
         Room cRoom = stage.getCurrentRoom();
-        if(cRoom.getType()==RoomType.ENEMYROOM){
-            state = GameState.COMBAT;
-            enemy = (EnemyRoom) cRoom;
+        
+        switch(cRoom.getType()){
+            case ENEMYROOM:
+                state = GameState.COMBAT;
+                enemy = (EnemyRoom) cRoom;
+                break;
+                
+            case EVENTROOM:
+                break;
+                
+            case LOOTROOM:
+                loot = (LootRoom) cRoom;
+                break;               
         }
+        
+        return cRoom.getType();
     }
     
     public GameState getGameState(){
@@ -103,5 +157,9 @@ public class GameUniverse {
     
     public int getCol(){
         return stage.getCurrentCol();
+    }
+    
+    public int getPoints(){
+        return player.getPoints();
     }
 }

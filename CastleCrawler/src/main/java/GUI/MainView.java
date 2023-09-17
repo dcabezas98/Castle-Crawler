@@ -8,6 +8,7 @@ import castlecrawler.Move;
 import controller.Controller;
 import castlecrawler.GameState;
 import castlecrawler.MoveAction;
+import castlecrawler.Stat;
 import castlecrawler.EnemyRoom;
 import javax.swing.JOptionPane;
 import javax.swing.JComponent;
@@ -78,7 +79,10 @@ public class MainView extends javax.swing.JFrame {
         
         bAttack.setEnabled(controller.getGameState()==GameState.COMBAT);
         bFlee.setEnabled(controller.getGameState()==GameState.COMBAT);
-        bPeek.setEnabled(controller.getGameState()==GameState.EXPLORING);
+        bPeek.setEnabled(controller.canPeek());
+        bLoot.setEnabled(controller.canLoot());
+        
+        lPoints.setText(String.valueOf(controller.getPoints()));
         
         revalidate();
         repaint();   
@@ -101,6 +105,35 @@ public class MainView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You escaped successfully!");
         else
             JOptionPane.showMessageDialog(this, "You couldn't escape!");
+    }
+    
+    public boolean nextStageMessage(){
+        return (JOptionPane.showConfirmDialog(this, "Jump to the next stage?", appName, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+    }
+    
+    public Stat levelUpMessage(){
+        Stat s = Stat.HP;
+        String[] choices = {"HP", "Attack", "Healing Power"};
+        String input = (String) JOptionPane.showInputDialog(null, "You greaw stronger.\nChoose a stat to power it up even more.",
+        "Level Up!", JOptionPane.QUESTION_MESSAGE, null,
+        choices, // Array of choices
+        choices[0]); // Initial choice
+        switch(input){
+            case "HP":
+                s=Stat.HP;
+                break;
+            case "Attack":
+                s=Stat.ATK;
+                break;
+            case "Healing Power":
+                s=Stat.HEAL;
+                break;
+        }
+        return s;
+    }
+    
+    public void increaseStageCounter(){
+        lStageN.setText(String.valueOf(Integer.valueOf(lStageN.getText())+1));
     }
     
     public void createKeyBindings(){
@@ -136,6 +169,10 @@ public class MainView extends javax.swing.JFrame {
         bPeek = new javax.swing.JButton();
         bLoot = new javax.swing.JButton();
         pEnemy = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lStageN = new javax.swing.JLabel();
+        lPoints = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,9 +232,29 @@ public class MainView extends javax.swing.JFrame {
         });
 
         bLoot.setText("Loot");
+        bLoot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLootActionPerformed(evt);
+            }
+        });
 
         pEnemy.setBackground(new java.awt.Color(255, 255, 255));
         pEnemy.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ENEMY", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel1.setText("STAGE");
+
+        lStageN.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lStageN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lStageN.setText("1");
+
+        lPoints.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lPoints.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lPoints.setText("0");
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("POINTS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,16 +293,25 @@ public class MainView extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(pEnemy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pStage, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pStage, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lStageN, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(pEnemy, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -261,10 +327,15 @@ public class MainView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bMR)
-                            .addComponent(bML))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bMD))
-                    .addComponent(pStage, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                            .addComponent(bML)))
+                    .addComponent(pStage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bMD)
+                    .addComponent(jLabel1)
+                    .addComponent(lStageN)
+                    .addComponent(lPoints)
+                    .addComponent(jLabel3))
                 .addContainerGap())
         );
 
@@ -296,8 +367,12 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_bFleeActionPerformed
 
     private void bPeekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPeekActionPerformed
-        // TODO add your handling code here:
+        controller.peek();
     }//GEN-LAST:event_bPeekActionPerformed
+
+    private void bLootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLootActionPerformed
+        controller.loot();
+    }//GEN-LAST:event_bLootActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,6 +418,10 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton bMR;
     private javax.swing.JButton bMU;
     private javax.swing.JButton bPeek;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lPoints;
+    private javax.swing.JLabel lStageN;
     private javax.swing.JPanel pEnemy;
     private javax.swing.JPanel pPlayer;
     private javax.swing.JPanel pStage;

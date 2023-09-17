@@ -5,12 +5,14 @@
 package controller;
 
 import GUI.MainView;
+import castlecrawler.RoomType;
 import castlecrawler.GameState;
 import castlecrawler.EscapeResult;
 import castlecrawler.CombatResult;
 import castlecrawler.GameUniverse;
 import castlecrawler.Move;
 import castlecrawler.Player;
+import castlecrawler.Stat;
 
 /**
  *
@@ -19,7 +21,6 @@ import castlecrawler.Player;
 public class Controller {
     
     private GameUniverse game;
-    private Player player;
     private MainView view;
     
     public Controller(GameUniverse g, MainView v){
@@ -45,6 +46,14 @@ public class Controller {
         }
     }
     
+    public boolean canPeek(){
+        return game.canPeek();
+    }
+    
+    public boolean canLoot(){
+        return game.canLoot();
+    }
+    
     public void flee(){
         EscapeResult result = game.flee();
         view.escapeMessage(result==EscapeResult.YES);
@@ -56,8 +65,20 @@ public class Controller {
     public void combat(){
         CombatResult result = game.combat();
         view.updateView();
-        if(result == CombatResult.LOST)
-            finish(1);
+        switch(result){
+            case LOST:
+                finish(1);
+                break;
+            case LEVELUP:
+                levelUp();
+                break;
+        }   
+    }
+    
+    public void levelUp(){
+        Stat s = view.levelUpMessage();
+        game.powerUp(s);
+        view.updateView();
     }
     
     public GameUniverse getGameUniverse(){
@@ -69,11 +90,34 @@ public class Controller {
     }
     
     public void move(Move m){
-        game.move(m);
+        RoomType rt = game.move(m);
+        view.updateView();
+        
+        if (rt==RoomType.FINALROOM){
+            if(view.nextStageMessage()){
+                game.nextStage();
+                view.increaseStageCounter();
+                view.updateView();
+            }
+        }
+    }
+    
+    public void peek(){
+        game.peek();
         view.updateView();
     }
     
     public GameState getGameState(){
         return game.getGameState();
+    }
+    
+    public void loot(){
+        if(game.loot())
+            levelUp();
+        view.updateView();
+    }
+    
+    public int getPoints(){
+        return game.getPoints();
     }
 }
