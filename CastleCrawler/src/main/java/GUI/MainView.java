@@ -8,8 +8,10 @@ import castlecrawler.Move;
 import controller.Controller;
 import castlecrawler.GameState;
 import castlecrawler.MoveAction;
+import castlecrawler.Interaction;
 import castlecrawler.Stat;
 import castlecrawler.EnemyRoom;
+import castlecrawler.Difficulty;
 import javax.swing.JOptionPane;
 import javax.swing.JComponent;
 import java.awt.event.KeyEvent;
@@ -132,6 +134,28 @@ public class MainView extends javax.swing.JFrame {
         return s;
     }
     
+    public Difficulty welcomeMessage(){
+        Difficulty d = Difficulty.NORMAL;
+        String[] choices = {"Easy", "Normal", "Hard"};
+        
+        String input = (String) JOptionPane.showInputDialog(null, "Welcome to Castle Crawler!\nSelect difficulty.",
+        "Level Up!", JOptionPane.QUESTION_MESSAGE, null,
+        choices, // Array of choices
+        choices[1]); // Initial choic
+        switch(input){
+            case "Easy":
+                d=Difficulty.EASY;
+                break;
+            case "Normal":
+                d=Difficulty.NORMAL;
+                break;
+            case "Hard":
+                d=Difficulty.HARD;
+                break;
+        }
+        return d;
+    }
+    
     public void increaseStageCounter(){
         lStageN.setText(String.valueOf(Integer.valueOf(lStageN.getText())+1));
     }
@@ -142,11 +166,13 @@ public class MainView extends javax.swing.JFrame {
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0, false), MoveAction.MOVE_DOWN);
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0, false), MoveAction.MOVE_LEFT);
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0, false), MoveAction.MOVE_RIGHT);
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_X,0, false), Interaction.ATTACKLOOT);
         
         mapView.getActionMap().put(MoveAction.MOVE_UP, new MoveAction(controller,Move.UP));
         mapView.getActionMap().put(MoveAction.MOVE_DOWN, new MoveAction(controller,Move.DOWN));
         mapView.getActionMap().put(MoveAction.MOVE_LEFT, new MoveAction(controller,Move.LEFT));
         mapView.getActionMap().put(MoveAction.MOVE_RIGHT, new MoveAction(controller,Move.RIGHT));
+        mapView.getActionMap().put(Interaction.ATTACKLOOT, new Interaction(controller));
     }
 
     /**

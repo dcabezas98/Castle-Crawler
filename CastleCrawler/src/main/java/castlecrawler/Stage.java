@@ -19,6 +19,7 @@ public class Stage {
     private Difficulty diff;
     private Dice dice;
     private int number;
+    private CardDealer dealer = CardDealer.getInstance();
     
     private int currentR;
     private int currentC;
@@ -54,22 +55,17 @@ public class Stage {
         
         for (; r < nLootRoom+1; r++){
             
-            // int[] ep = dice.getLootStats()
-            int e = 1;
-            int p = 2;
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new LootRoom(e, p);
+            LootRoom room = dealer.nextLoot();
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = room;
         }
-        for (; r < nEnemyRoom+nLootRoom+1; r++){
-            
-            // int[] ahep = dice.getEnemyStats()
-            int a = 10;
-            int h = 50;
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EnemyRoom(a,h, 1, "TODO: enemy");
+        for (; r < nEnemyRoom+nLootRoom+1; r++){           
+            EnemyRoom room = dealer.nextEnemy();
+            room.buff((n-1)*2, (n-1)*5);
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = room;
         }
         for (; r < nEventRoom+nEnemyRoom+nLootRoom+1; r++){
-            // String des = dealer.getEvent() 
-            String des = "TODO: descripción";
-            map[seq.get(r)/nRows][seq.get(r)%nRows] = new EventRoom(des);
+            EventRoom room = dealer.nextEvent();
+            map[seq.get(r)/nRows][seq.get(r)%nRows] = room;
         }
         for (; r < nRows*nCols-1; r++){
             map[seq.get(r)/nRows][seq.get(r)%nRows] = new EmptyRoom();

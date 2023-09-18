@@ -18,6 +18,10 @@ public class LootRoom extends Room {
         points=p;
     }
     
+    LootRoom(LootRoom r){
+        this(r.exp, r.points);
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.LOOTROOM;

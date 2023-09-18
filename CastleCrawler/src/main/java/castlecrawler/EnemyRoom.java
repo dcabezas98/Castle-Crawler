@@ -24,6 +24,11 @@ public class EnemyRoom extends Room {
         description = d;
     }
     
+    EnemyRoom(EnemyRoom e){
+        this(e.atk, e.hp, e.exp, e.description);
+        maxHp=e.maxHp;
+    }
+    
     public int getAttack(){
         return atk;
     }
@@ -47,6 +52,12 @@ public class EnemyRoom extends Room {
     public boolean damage(int dmg){
         hp-=dmg;
         return hp <= 0; // Death
+    }
+    
+    public void buff(int a, int h){ // Increase enemy strength according to stage number
+        atk+=a;
+        maxHp+=h;
+        hp=maxHp;
     }
     
     @Override

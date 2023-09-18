@@ -16,12 +16,12 @@ public class Play {
 
     public static void main(String[] args) {
         
-        castlecrawler.Difficulty diff = castlecrawler.Difficulty.HARD;
-        
-        GameUniverse game = new GameUniverse(diff);
-        
         MainView view = new MainView();
         view.setVisible(true);
+        
+        castlecrawler.Difficulty diff = view.welcomeMessage();
+        
+        GameUniverse game = new GameUniverse(diff);
         
         Controller controller = new Controller(game, view);
         

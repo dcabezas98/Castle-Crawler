@@ -11,9 +11,15 @@ package castlecrawler;
 public class EventRoom extends Room {
     
     private String description;
+    private EventType eventType;
     
-    EventRoom(String d){
+    EventRoom(String d, EventType et){
         description=d;
+        eventType=et;
+    }
+    
+    EventRoom(EventRoom v){
+        this(v.description, v.eventType);
     }
     
     public String getDescription(){
