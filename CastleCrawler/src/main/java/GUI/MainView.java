@@ -138,11 +138,13 @@ public class MainView extends javax.swing.JFrame {
     public Difficulty welcomeMessage(){
         Difficulty d = Difficulty.NORMAL;
         String[] choices = {"Easy", "Normal", "Hard"};
-        
-        String input = (String) JOptionPane.showInputDialog(null, "Welcome to Castle Crawler!\nSelect difficulty.",
+        String input = "";
+        input = (String) JOptionPane.showInputDialog(null, "Welcome to Castle Crawler!\nSelect difficulty.",
         "Level Up!", JOptionPane.QUESTION_MESSAGE, null,
         choices, // Array of choices
         choices[1]); // Initial choic
+        if (input == null)
+            System.exit(0);
         switch(input){
             case "Easy":
                 d=Difficulty.EASY;
@@ -153,6 +155,8 @@ public class MainView extends javax.swing.JFrame {
             case "Hard":
                 d=Difficulty.HARD;
                 break;
+            default:
+                System.exit(0);
         }
         return d;
     }
