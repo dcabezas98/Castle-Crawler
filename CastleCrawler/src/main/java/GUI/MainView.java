@@ -9,6 +9,7 @@ import controller.Controller;
 import castlecrawler.GameState;
 import castlecrawler.MoveAction;
 import castlecrawler.Interaction;
+import castlecrawler.SecondAction;
 import castlecrawler.Stat;
 import castlecrawler.EnemyRoom;
 import castlecrawler.Difficulty;
@@ -156,6 +157,10 @@ public class MainView extends javax.swing.JFrame {
         return d;
     }
     
+    public void eventMessage(String description){
+        JOptionPane.showMessageDialog(this, description);
+    }
+    
     public void increaseStageCounter(){
         lStageN.setText(String.valueOf(Integer.valueOf(lStageN.getText())+1));
     }
@@ -167,12 +172,14 @@ public class MainView extends javax.swing.JFrame {
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0, false), MoveAction.MOVE_LEFT);
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0, false), MoveAction.MOVE_RIGHT);
         mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_X,0, false), Interaction.ATTACKLOOT);
+        mapView.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z,0, false), SecondAction.FLEEPEEK);
         
         mapView.getActionMap().put(MoveAction.MOVE_UP, new MoveAction(controller,Move.UP));
         mapView.getActionMap().put(MoveAction.MOVE_DOWN, new MoveAction(controller,Move.DOWN));
         mapView.getActionMap().put(MoveAction.MOVE_LEFT, new MoveAction(controller,Move.LEFT));
         mapView.getActionMap().put(MoveAction.MOVE_RIGHT, new MoveAction(controller,Move.RIGHT));
         mapView.getActionMap().put(Interaction.ATTACKLOOT, new Interaction(controller));
+        mapView.getActionMap().put(SecondAction.FLEEPEEK, new SecondAction(controller));
     }
 
     /**

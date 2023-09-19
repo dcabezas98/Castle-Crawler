@@ -21,6 +21,7 @@ class CardDealer {
 
         enemies=new EnemyCardDeck();
         loots=new LootCardDeck();
+        events=new EventCardDeck();
         
         initCards();
     };
@@ -96,7 +97,7 @@ class CardDealer {
         events.add(new EventRoom("Nice!\nYou took a replenishing nap.", EventType.HEAL));
         events.add(new EventRoom("Nice!\nYou took a replenishing nap.", EventType.HEAL));
         events.add(new EventRoom("Nice!\nYou took a replenishing nap.", EventType.HEAL));
-        events.add(new EventRoom("Amazing!\nA strage potion made you feel stronger!", EventType.LEVELUP));
+        events.add(new EventRoom("Amazing!\nA strage potion made you feel stronger!", EventType.POWERUP));
     }
 
 }

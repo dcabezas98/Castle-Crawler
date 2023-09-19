@@ -9,5 +9,5 @@ package castlecrawler;
  * @author David Cabezas
  */
 public enum EventType {
-    DARKNESS, HEAL, BIGDMG, SMALLDMG, LEVELUP;
+    DARKNESS, HEAL, BIGDMG, SMALLDMG, POWERUP;
 }

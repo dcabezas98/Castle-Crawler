@@ -124,6 +124,20 @@ public class Player {
         return points;
     }
     
+    public void eventDmg(boolean severe){
+        int dmg;
+        if(severe)
+            dmg=(int) Math.round(maxHp*0.15);
+        else
+            dmg=(int) Math.round(maxHp*0.05);
+        hp=Math.max(1, hp-dmg);
+    }
+    
+    public void powerUp(){
+        atk+=5;
+        hp=maxHp;
+    }
+    
     public boolean giveLoot(LootRoom r){
         
         points+=r.getPoints();

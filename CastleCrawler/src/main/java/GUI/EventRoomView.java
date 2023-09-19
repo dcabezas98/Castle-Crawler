@@ -19,11 +19,6 @@ public class EventRoomView extends RoomView {
         initComponents();
         setBorder();
     }
-    
-    void setEventRoom(EventRoom r){
-        lDescription.setText(r.getDescription());
-        repaint();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,7 +30,6 @@ public class EventRoomView extends RoomView {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        lDescription = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 153, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.lightGray));
@@ -46,27 +40,20 @@ public class EventRoomView extends RoomView {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Event");
 
-        lDescription.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        lDescription.setForeground(new java.awt.Color(0, 0, 0));
-        lDescription.setText("lDescription");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -74,6 +61,5 @@ public class EventRoomView extends RoomView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lDescription;
     // End of variables declaration//GEN-END:variables
 }

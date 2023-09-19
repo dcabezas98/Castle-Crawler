@@ -100,6 +100,12 @@ public class Controller {
                 view.updateView();
             }
         }
+        
+        if(rt==RoomType.EVENTROOM){
+            String description = game.resolveEvent();
+            view.eventMessage(description);
+            view.updateView();
+        }
     }
     
     public void peek(){

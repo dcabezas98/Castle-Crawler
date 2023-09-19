@@ -162,6 +162,15 @@ public class Stage {
         return map[currentR][currentC];
     }
     
+    public void darkness(){
+        for (int i = 0; i < nRows; i++){
+            for (int j = 0; j < nCols; j++){
+                map[i][j].hide();
+            }        
+        }
+        getCurrentRoom().show();
+    }
+    
     @Override
     public String toString(){
         String str="";

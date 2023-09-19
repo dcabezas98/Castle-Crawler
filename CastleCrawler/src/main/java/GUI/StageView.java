@@ -43,7 +43,6 @@ public class StageView extends javax.swing.JPanel {
                 switch (r.getType()){
                     case EVENTROOM:
                         rv = new EventRoomView(r.isVisible(), r.selected());
-                        ((EventRoomView) rv).setEventRoom((EventRoom)r);
                         break;
                     case ENEMYROOM:
                         rv = new EnemyRoomView(r.isVisible(), r.selected());

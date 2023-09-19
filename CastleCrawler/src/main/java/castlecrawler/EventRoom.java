@@ -26,6 +26,10 @@ public class EventRoom extends Room {
         return description;
     }
     
+    public EventType getEventType(){
+        return eventType;
+    }
+    
     @Override
     public RoomType getType() {
         return RoomType.EVENTROOM;

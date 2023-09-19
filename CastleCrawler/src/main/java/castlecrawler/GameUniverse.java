@@ -19,9 +19,6 @@ public class GameUniverse {
     private EnemyRoom enemy;
     private LootRoom loot;
     private GameState state;
-    private Room currentRoom;
-    
-    private boolean canPeek;
     
     public GameUniverse(Difficulty d){
  
@@ -116,6 +113,37 @@ public class GameUniverse {
             stage.emptyCurrentRoom();
         }
         return levelUp;
+    }
+    
+    public String resolveEvent(){
+        
+        String description = "";
+        
+        Room v = stage.getCurrentRoom();
+        if(v.getType()==RoomType.EVENTROOM){
+            description = ((EventRoom)v).getDescription();
+            switch(((EventRoom)v).getEventType()){
+                case DARKNESS:
+                    stage.darkness();
+                    break;
+                case HEAL:
+                    int k = dice.nHealNap();
+                    for (int j = 0; j<k;j++)
+                        player.heal();
+                    break;
+                case BIGDMG:
+                    player.eventDmg(true);
+                    break;                   
+                case SMALLDMG:
+                    player.eventDmg(true);
+                    break;                   
+                case POWERUP:
+                    player.powerUp();
+                    break;    
+            }
+            stage.emptyCurrentRoom();
+        }        
+        return description;
     }
     
     public boolean canMove(Move m){

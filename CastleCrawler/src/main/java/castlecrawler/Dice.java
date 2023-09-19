@@ -71,6 +71,10 @@ public class Dice {
         return enemyHp*STAYPROB>x;
     }
     
+    int nHealNap(){
+        return generator.nextInt(1,4);
+    }
+    
     List<Integer> randomSequence(int size) {
         List<Integer> ret = new ArrayList<>(size);
         for (int i=0; i<size; i++) {
