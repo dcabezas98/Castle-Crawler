@@ -135,7 +135,7 @@ public class GameUniverse {
                     player.eventDmg(true);
                     break;                   
                 case SMALLDMG:
-                    player.eventDmg(true);
+                    player.eventDmg(false);
                     break;                   
                 case POWERUP:
                     player.powerUp();

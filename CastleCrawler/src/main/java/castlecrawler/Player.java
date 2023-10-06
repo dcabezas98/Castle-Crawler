@@ -37,11 +37,11 @@ public class Player {
     
     public void levelUp(){
         level++;
-        expTo=10;
-        maxHp+=10;
-        atk+=3;
-        hea+=2;
-        heal();
+        expTo=10+level/2;
+        maxHp+=7;
+        hp=Math.min(hp+7,maxHp);
+        atk+=2;
+        hea+=1;
     }
     
     public void powerUp(Stat stat){
